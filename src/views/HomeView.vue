@@ -49,11 +49,16 @@ export default {
     <div v-for="contact in contacts">
     <p>{{ contact.first_name }}
     {{ contact.last_name }}</p>
-    <img :src="contact.image">
-    <button v-on:click="showContact()">More Info</button>
+    <img :src="contact.image" width="200" height="200"><br />
+    <button v-on:click="showContact(contact)">More Info</button>
     <br>
     <hr />
     </div>
+    <dialog id="contact-details">
+      <form>
+        
+      </form>
+    </dialog>
   </div>
 </template>
 
