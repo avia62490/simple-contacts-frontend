@@ -3,12 +3,14 @@ import axios from "axios"
 export default {
   data: function() {
     return {
-      message: "Welcome to Vue.js!",
-      text: "this is some text",
+      message: "Contact List",
+      text: "These are your contacts",
       contacts: []
     };
   },
-  created: function() {},
+  created: function() {
+    this.indexContacts()
+  },
   methods: {
     indexContacts: function() {
       axios.get("/contacts").then(response => {
@@ -24,8 +26,16 @@ export default {
   <div class="home">
     <h1>{{ message }}</h1>
     <h3>{{ text }}</h3>
-    <p>{{ contacts }}</p>
-    <button v-on:click="indexContacts">View Contacts</button>
+    <hr />
+    <div v-for="contact in contacts">
+    <p>{{ contact.first_name }}
+    {{ contact.last_name }}</p>
+    <p>{{ contact.email }}</p>
+    <p>{{ contact.phone_number }}</p>
+    <img :src="contact.image">
+    <br>
+    <hr />
+    </div>
   </div>
 </template>
 
