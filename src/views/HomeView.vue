@@ -37,6 +37,14 @@ export default {
       axios.patch(`/contacts/${this.currentContact.id}`, this.currentContact).then(response => {
         console.log(response.data);
       })
+    },
+    destroyContact: function() {
+      console.log("destroyin contact");
+      axios.delete(`/contacts/${this.currentContact.id}`).then(response => {
+        console.log(response.data);
+        var index = this.contacts.indexOf(this.currentContact);
+        this.contacts.splice(index, 1);
+      })
     }
   }
 };
@@ -78,6 +86,7 @@ export default {
         <p>Phone: <input type="text" v-model="currentContact.phone_number"/></p>
         <p>Image: <input type="text" v-model="currentContact.image"/></p>
         <button v-on:click="updateContact()">Update</button>
+        <button v-on:click="destroyContact()">Remove</button>
         <button>Close</button>
       </form>
     </dialog>
