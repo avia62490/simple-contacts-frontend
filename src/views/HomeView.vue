@@ -6,7 +6,8 @@ export default {
       message: "Contact List",
       text: "Add a contact",
       contacts: [],
-      newContact: {}
+      newContact: {},
+      currentContact: {}
     };
   },
   created: function() {
@@ -25,8 +26,10 @@ export default {
         console.log(response.data);
       })
     },
-    showContact: function() {
-      console.log("Showing contact info")
+    showContact: function(theContact) {
+      console.log("Showing contact info");
+      this.currentContact = theContact;
+      document.querySelector('#contact-details').showModal();
     }
   }
 };
@@ -55,8 +58,12 @@ export default {
     <hr />
     </div>
     <dialog id="contact-details">
-      <form>
-        
+      <form method="dialog">
+        <p>First name: {{ currentContact.first_name }}</p>
+        <p>Last name: {{ currentContact.last_name }}</p>
+        <p>Email: {{ currentContact.email }}</p>
+        <p>Phone number: {{ currentContact.phone_number }}</p>
+        <button>Close</button>
       </form>
     </dialog>
   </div>
