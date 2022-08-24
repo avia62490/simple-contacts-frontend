@@ -22,14 +22,21 @@ export default {
     },
     createContact: function() {
       console.log("creating new contact")
-      axios.post("contacts", this.newContact).then(response =>{
+      axios.post("/contacts", this.newContact).then(response =>{
         console.log(response.data);
+        this.contacts.push(response.data)
       })
     },
     showContact: function(theContact) {
       console.log("Showing contact info");
       this.currentContact = theContact;
       document.querySelector('#contact-details').showModal();
+    },
+    updateContact: function() {
+      console.log("updating contcat");
+      axios.patch(`/contacts/${this.currentContact.id}`, this.currentContact).then(response => {
+        console.log(response.data);
+      })
     }
   }
 };
@@ -46,7 +53,7 @@ export default {
     <p><b>Email:</b><input type="text" v-model="newContact.email"/></p>
     <p><b>Phone:</b><input type="text" v-model="newContact.phone_number"/></p>
     <p><b>Image:</b><input type="text" v-model="newContact.image"/></p>
-    <button v-on:click="createContact">Add new contact</button>
+    <button v-on:click="createContact()">Add new contact</button>
     <hr />
     <!-- Display Contacts -->
     <div v-for="contact in contacts">
@@ -63,6 +70,14 @@ export default {
         <p>Last name: {{ currentContact.last_name }}</p>
         <p>Email: {{ currentContact.email }}</p>
         <p>Phone number: {{ currentContact.phone_number }}</p>
+        <hr/>
+        <hr/>
+        <p>First name: <input type="text" v-model="currentContact.first_name"/></p>
+        <p>Last name: <input type="text" v-model="currentContact.last_name"/></p>
+        <p>Email: <input type="text" v-model="currentContact.email"/></p>
+        <p>Phone: <input type="text" v-model="currentContact.phone_number"/></p>
+        <p>Image: <input type="text" v-model="currentContact.image"/></p>
+        <button v-on:click="updateContact()">Update</button>
         <button>Close</button>
       </form>
     </dialog>
